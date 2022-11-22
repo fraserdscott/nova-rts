@@ -26,9 +26,8 @@ fn main() {
     for i in 0..iteration_count {
         let mut private_input = HashMap::new();
         private_input.insert("frame".to_string(), json!(i));
-        private_input.insert("account".to_string(), json!(i));
+        private_input.insert("player".to_string(), json!(i));
         private_input.insert("unit".to_string(), json!(i));
-        private_input.insert("vector".to_string(), json!([0, 0]));
         private_inputs.push(private_input);
     }
 

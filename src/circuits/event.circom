@@ -15,16 +15,12 @@ template EventHash(D) {
     signal input frame;             // The frame that this event took place in
     signal input player;           // The player that logged this event
     signal input unit;              // The selected unit for this event
-    signal input vector[D];         // The new movement vector for the selected unit for this event
 
-    component hash = Poseidon(4+D);
+    component hash = Poseidon(4);
     hash.inputs[0] <== step_in;
     hash.inputs[1] <== frame;
     hash.inputs[2] <== player;
     hash.inputs[3] <== unit;
-    for (var i=0; i < D; i++) { 
-        hash.inputs[4+i] <== vector[i];
-    }
 
     step_out <== hash.out;
 }
@@ -97,21 +93,23 @@ template EventVector(T, N, D) {
     Hash an event.
 */
 template Event(nFrames, nUnits, nDims) {
-    signal input step_in;
+    signal input step_in[1];
+    signal output step_out[1];
 
     signal input frame;
     signal input player;
     signal input unit;
-    signal input vector[nDims];
 
     component hash = EventHash(nDims);
+    hash.step_in <== step_in[0];
     hash.frame <== frame;
     hash.player <== player;
     hash.unit <== unit;
-    hash.vector <== vector;
+
+    step_out[0] <== hash.step_out;
 }
 
-component main { public [step_in] } = EventVector(600, 10, 2);
+component main { public [step_in] } = Event(600, 10, 2);
 
 /* INPUT = {
     "step_in": [0],
