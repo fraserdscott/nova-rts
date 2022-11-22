@@ -28,6 +28,7 @@ fn main() {
         private_input.insert("frame".to_string(), json!(i));
         private_input.insert("account".to_string(), json!(i));
         private_input.insert("unit".to_string(), json!(i));
+        private_input.insert("vector".to_string(), json!([0, 0]));
         private_inputs.push(private_input);
     }
 

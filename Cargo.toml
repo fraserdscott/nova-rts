@@ -1,5 +1,5 @@
 [package]
-name = "my-project"
+name = "nova-rts"
 version = "0.1.0"
 edition = "2021"
 
