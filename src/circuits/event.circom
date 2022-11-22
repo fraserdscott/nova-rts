@@ -119,7 +119,7 @@ template Event(nEvents, nDims) {
     step_out[0] <== hashes[nEvents - 1].step_out;
 }
 
-component main { public [step_in] } = Event(32, 2);
+component main { public [step_in] } = Event(64, 2);
 
 /* INPUT = {
     "step_in": [0],

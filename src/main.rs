@@ -1,7 +1,7 @@
 use std::{
     collections::HashMap,
     env::current_dir,
-    time::{Instant},
+    time::Instant,
 };
 
 use nova_scotia::{
@@ -10,7 +10,7 @@ use nova_scotia::{
 use nova_snark::{traits::Group, CompressedSNARK};
 use serde_json::json;
 
-const nEvents: usize = 32;
+const N_EVENTS: usize = 32;
 
 fn main() {
     let iteration_count = 4;
@@ -21,8 +21,8 @@ fn main() {
     let witness_generator_file_js = root.join("src/circuits/event_js/generate_witness.js");
     let witness_generator_file_wasm = root.join("src/circuits/event_js/event.wasm");
 
-    let zeros: [u32; nEvents] = [0; nEvents];
-    let zero_coords: [[u32; 2]; nEvents] = [[0, 0]; nEvents];
+    let zeros: [u32; N_EVENTS] = [0; N_EVENTS];
+    let zero_coords: [[u32; 2]; N_EVENTS] = [[0, 0]; N_EVENTS];
 
     let mut private_inputs = Vec::new();
     for i in 0..iteration_count {
@@ -32,6 +32,7 @@ fn main() {
         private_input.insert("units".to_string(), json!(zeros));
         private_input.insert("vectors".to_string(), json!(zero_coords));
         private_inputs.push(private_input);
+
     }
 
     let start_public_input = vec![F1::from(0)];
