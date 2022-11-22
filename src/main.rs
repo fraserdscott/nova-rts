@@ -1,20 +1,19 @@
 use std::{
     collections::HashMap,
     env::current_dir,
-    io::Write,
-    time::{Duration, Instant},
+    time::{Instant},
 };
 
-use ff::PrimeField;
 use nova_scotia::{
     circom::reader::load_r1cs, create_public_params, create_recursive_circuit, F1, G1, G2,
 };
 use nova_snark::{traits::Group, CompressedSNARK};
-use serde::{Deserialize, Serialize};
 use serde_json::json;
 
+const nEvents: usize = 32;
+
 fn main() {
-    let iteration_count = 2;
+    let iteration_count = 4;
     let root = current_dir().unwrap();
 
     let circuit_file = root.join("src/circuits/event.r1cs");
@@ -22,12 +21,16 @@ fn main() {
     let witness_generator_file_js = root.join("src/circuits/event_js/generate_witness.js");
     let witness_generator_file_wasm = root.join("src/circuits/event_js/event.wasm");
 
+    let zeros: [u32; nEvents] = [0; nEvents];
+    let zero_coords: [[u32; 2]; nEvents] = [[0, 0]; nEvents];
+
     let mut private_inputs = Vec::new();
     for i in 0..iteration_count {
         let mut private_input = HashMap::new();
-        private_input.insert("frame".to_string(), json!(i));
-        private_input.insert("player".to_string(), json!(i));
-        private_input.insert("unit".to_string(), json!(i));
+        private_input.insert("frames".to_string(), json!(zeros));
+        private_input.insert("players".to_string(), json!(zeros));
+        private_input.insert("units".to_string(), json!(zeros));
+        private_input.insert("vectors".to_string(), json!(zero_coords));
         private_inputs.push(private_input);
     }
 
