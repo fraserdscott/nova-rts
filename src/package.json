@@ -1,0 +1,15 @@
+{
+  "name": "nova-rts",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "circomlib": "^2.0.3"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "circom": "circom circuits/event.circom --r1cs --sym --wasm --prime vesta --output circuits"
+  }
+}

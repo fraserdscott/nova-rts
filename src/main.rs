@@ -14,18 +14,20 @@ use serde::{Deserialize, Serialize};
 use serde_json::json;
 
 fn main() {
-    let iteration_count = 64;
+    let iteration_count = 2;
     let root = current_dir().unwrap();
 
-    let circuit_file = root.join("src/toy/toy.r1cs");
+    let circuit_file = root.join("src/circuits/event.r1cs");
     let r1cs = load_r1cs(&circuit_file);
-    let witness_generator_file_js = root.join("src/toy/toy_js/generate_witness.js");
-    let witness_generator_file_wasm = root.join("src/toy/toy_js/toy.wasm");
+    let witness_generator_file_js = root.join("src/circuits/event_js/generate_witness.js");
+    let witness_generator_file_wasm = root.join("src/circuits/event_js/event.wasm");
 
     let mut private_inputs = Vec::new();
     for i in 0..iteration_count {
         let mut private_input = HashMap::new();
-        private_input.insert("adder".to_string(), json!(i));
+        private_input.insert("frame".to_string(), json!(i));
+        private_input.insert("account".to_string(), json!(i));
+        private_input.insert("unit".to_string(), json!(i));
         private_inputs.push(private_input);
     }
 
