@@ -112,3 +112,12 @@ template Event(nFrames, nUnits, nDims) {
 }
 
 component main { public [step_in] } = EventVector(600, 10, 2);
+
+/* INPUT = {
+    "step_in": [0],
+    "step_out": [1234567],
+    "frame": 0,
+    "player": 0,
+    "unit": 0,
+    "vector": [0, 0],
+} */

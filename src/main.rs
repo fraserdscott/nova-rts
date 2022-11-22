@@ -32,7 +32,7 @@ fn main() {
         private_inputs.push(private_input);
     }
 
-    let start_public_input = vec![F1::from(10), F1::from(10)];
+    let start_public_input = vec![F1::from(0)];
 
     let pp = create_public_params(r1cs.clone());
 
